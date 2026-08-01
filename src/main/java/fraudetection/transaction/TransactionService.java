@@ -1,0 +1,67 @@
+package fraudetection.transaction;
+
+import account.AccountRepository;
+import fraudetection.transaction.Transaction;
+import fraudetection.transaction.dto.CreateTransactionRequestDTO;
+import fraudetection.transaction.dto.TransactionDetailsResponseDTO;
+
+import account.AccountService;
+import account.Account;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
+public class TransactionService {
+
+    private final TransactionRepository transactionRepository;
+    private final AccountService accountService;
+
+    public TransactionService(TransactionRepository transactionRepository, AccountService accountService) {
+        this.transactionRepository = transactionRepository;
+        this.accountService = accountService;
+    }
+
+    public TransactionDetailsResponseDTO getTransactionDetails(Long id) {
+        Transaction transaction = transactionRepository.findById(id).orElseThrow();
+
+        return new TransactionDetailsResponseDTO(
+                transaction.getSenderCountry(),
+                transaction.getReceiverCountry(),
+                transaction.getAmount(),
+                transaction.getTransactionState()
+        );
+    }
+
+    public TransactionDetailsResponseDTO createTransaction(CreateTransactionRequestDTO request) {
+        Account sender = accountService.findById(request.senderAccountId());
+        Account receiver = accountService.findById(request.receiverAccountId());
+
+        //Campos a preencher
+        Transaction transaction = new Transaction();
+
+        transaction.setSenderAccountId(sender.getId());
+        transaction.setReceiverAccountId(receiver.getId());
+
+        transaction.setAmount(request.amount());
+
+        transaction.setSenderCountry(sender.getCountry());
+        transaction.setReceiverCountry(receiver.getCountry());
+
+        transaction.setTimestamp(LocalDateTime.now());
+
+        transaction.setTransactionState(TransactionState.APPROVED);
+
+        //Salvar no repositório
+        transactionRepository.save(transaction);
+
+        return new TransactionDetailsResponseDTO(
+                transaction.getSenderCountry(),
+                transaction.getReceiverCountry(),
+                transaction.getAmount(),
+                transaction.getTransactionState()
+        );
+    }
+
+
+}
