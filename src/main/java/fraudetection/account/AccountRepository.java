@@ -1,4 +1,4 @@
-package account;
+package fraudetection.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

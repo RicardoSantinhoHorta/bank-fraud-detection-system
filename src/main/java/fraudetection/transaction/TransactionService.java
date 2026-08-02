@@ -1,17 +1,15 @@
 package fraudetection.transaction;
 
-import account.AccountRepository;
-import fraudetection.transaction.Transaction;
 import fraudetection.transaction.dto.CreateTransactionRequestDTO;
 import fraudetection.transaction.dto.TransactionDetailsResponseDTO;
 
-import account.AccountService;
-import account.Account;
+import fraudetection.account.AccountService;
+import fraudetection.account.Account;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
+@Service
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
@@ -22,7 +20,7 @@ public class TransactionService {
         this.accountService = accountService;
     }
 
-    public TransactionDetailsResponseDTO getTransactionDetails(Long id) {
+    public TransactionDetailsResponseDTO getTransactionDetailsById(Long id) {
         Transaction transaction = transactionRepository.findById(id).orElseThrow();
 
         return new TransactionDetailsResponseDTO(

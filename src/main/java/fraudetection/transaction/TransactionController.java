@@ -16,7 +16,7 @@ public class TransactionController {
 
     @GetMapping("/transactions/{id}")
     public TransactionDetailsResponseDTO getTransactionDetails(@PathVariable Long id) {
-        return transactionService.getTransactionDetails(id);
+        return transactionService.getTransactionDetailsById(id);
     }
 
     @PostMapping("/transactions")
