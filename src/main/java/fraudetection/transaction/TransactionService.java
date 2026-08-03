@@ -24,7 +24,9 @@ public class TransactionService {
         Transaction transaction = transactionRepository.findById(id).orElseThrow();
 
         return new TransactionDetailsResponseDTO(
+                transaction.getSenderAccountId(),
                 transaction.getSenderCountry(),
+                transaction.getReceiverAccountId(),
                 transaction.getReceiverCountry(),
                 transaction.getAmount(),
                 transaction.getTransactionState()
@@ -50,11 +52,16 @@ public class TransactionService {
 
         transaction.setTransactionState(TransactionState.APPROVED);
 
+        transaction.setRiskLevel(TransactionRiskLevel.UNKNOWN);
+
+        transaction.setRiskScore(0);
         //Salvar no repositório
         transactionRepository.save(transaction);
 
         return new TransactionDetailsResponseDTO(
+                transaction.getSenderAccountId(),
                 transaction.getSenderCountry(),
+                transaction.getReceiverAccountId(),
                 transaction.getReceiverCountry(),
                 transaction.getAmount(),
                 transaction.getTransactionState()

@@ -34,4 +34,6 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionRiskLevel riskLevel;
 
+    private double riskScore;
+
 }
