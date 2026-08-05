@@ -1,5 +1,7 @@
 package fraudetection.transaction;
 
+import fraudetection.fraud.rule.TransactionType;
+import fraudetection.fraud.rule.TransactionTypeRule;
 import fraudetection.transaction.dto.CreateTransactionRequestDTO;
 import fraudetection.transaction.dto.TransactionDetailsResponseDTO;
 
@@ -36,6 +38,9 @@ public class TransactionService {
     public TransactionDetailsResponseDTO createTransaction(CreateTransactionRequestDTO request) {
         Account sender = accountService.findById(request.senderAccountId());
         Account receiver = accountService.findById(request.receiverAccountId());
+        TransactionType transactionType =
+                getTransactionType(request.senderCountry(), request.receiverCountry());
+
 
         //Campos a preencher
         Transaction transaction = new Transaction();
@@ -47,6 +52,8 @@ public class TransactionService {
 
         transaction.setSenderCountry(sender.getCountry());
         transaction.setReceiverCountry(receiver.getCountry());
+
+        transaction.setTransactionType(transactionType);
 
         transaction.setTimestamp(LocalDateTime.now());
 
@@ -68,5 +75,7 @@ public class TransactionService {
         );
     }
 
-
+    private TransactionType getTransactionType(String  senderCountry, String receiverCountry) {
+        return TransactionTypeRule.determineTransactionType(senderCountry, receiverCountry);
+    }
 }

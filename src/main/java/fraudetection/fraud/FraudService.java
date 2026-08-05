@@ -1,4 +1,6 @@
 package fraudetection.fraud;
+import fraudetection.fraud.rule.TransactionTypeRule;
+import fraudetection.fraud.rule.TransactionType;
 import fraudetection.transaction.Transaction;
 import fraudetection.transaction.TransactionRiskLevel;
 import fraudetection.transaction.TransactionState;
@@ -39,5 +41,9 @@ public class FraudService {
             return TransactionState.APPROVED;
         }
         return TransactionState.REJECTED;
+    }
+
+    public boolean isInternationalTransaction(Transaction transaction){
+        return !transaction.getSenderCountry().equals(transaction.getReceiverCountry());
     }
 }

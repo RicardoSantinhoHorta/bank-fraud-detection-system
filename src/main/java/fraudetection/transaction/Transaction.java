@@ -3,6 +3,7 @@ package fraudetection.transaction;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import fraudetection.fraud.rule.TransactionType;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Transaction {
     private BigDecimal amount;
     private String senderCountry; //O ideal seria ser o código tipo TP, ES, FR e não uma string
     private String ReceiverCountry;
+    private TransactionType transactionType;
     private LocalDateTime timestamp;
 
     @Enumerated(EnumType.STRING)
@@ -35,5 +37,6 @@ public class Transaction {
     private TransactionRiskLevel riskLevel;
 
     private double riskScore;
+
 
 }
