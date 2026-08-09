@@ -1,1 +1,0 @@
-Explicação da parte da IA
