@@ -3,6 +3,8 @@ package fraudetection.transaction;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import fraudetection.fraud.rule.TaxHavenRiskLevel;
+import fraudetection.fraud.rule.TransactionAmountLevel;
 import fraudetection.fraud.rule.TransactionType;
 import jakarta.persistence.*;
 
@@ -22,11 +24,18 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long SenderAccountId;
-    private Long ReceiverAccountId;
+    private Long senderAccountId;
+    private Long receiverAccountId;
+
     private BigDecimal amount;
+    @Enumerated(EnumType.STRING)
+    private TransactionAmountLevel transactionAmountLevel;
+
     private String senderCountry; //O ideal seria ser o código tipo TP, ES, FR e não uma string
-    private String ReceiverCountry;
+    private String receiverCountry;
+    @Enumerated(EnumType.STRING)
+    private TaxHavenRiskLevel taxHavenRiskLevel; //Associado ao senderCountry
+
     private TransactionType transactionType;
     private LocalDateTime timestamp;
 

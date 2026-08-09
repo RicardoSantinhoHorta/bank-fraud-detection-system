@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class FraudService {
 
+    private AiClient aiClient;
+
+    public FraudService(AiClient aiClient) {
+        this.aiClient = aiClient;
+    }
+
     public void verifyTransaction(Transaction transaction) {
-        //Chamar o AI para determinar o riskScoreAi
 
-        double riskScoreAi = 0.3;
-
+        double riskScoreAi = aiClient.getRiskScore(transaction);
         transaction.setRiskScore(riskScoreAi);
         transaction.setRiskLevel(determineRiskScore(riskScoreAi));
         transaction.setTransactionState(determineTransactionState(transaction.getRiskLevel()));

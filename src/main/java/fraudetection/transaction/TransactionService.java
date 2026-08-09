@@ -1,7 +1,7 @@
 package fraudetection.transaction;
 
-import fraudetection.fraud.rule.TransactionType;
-import fraudetection.fraud.rule.TransactionTypeRule;
+import fraudetection.fraud.FraudService;
+import fraudetection.fraud.rule.*;
 import fraudetection.transaction.dto.CreateTransactionRequestDTO;
 import fraudetection.transaction.dto.TransactionDetailsResponseDTO;
 
@@ -9,6 +9,7 @@ import fraudetection.account.AccountService;
 import fraudetection.account.Account;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Service
@@ -16,10 +17,14 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final AccountService accountService;
+    private FraudService fraudService;
 
-    public TransactionService(TransactionRepository transactionRepository, AccountService accountService) {
+    public TransactionService(TransactionRepository transactionRepository,
+                              AccountService accountService,
+                              FraudService fraudService) {
         this.transactionRepository = transactionRepository;
         this.accountService = accountService;
+        this.fraudService = fraudService;
     }
 
     public TransactionDetailsResponseDTO getTransactionDetailsById(Long id) {
@@ -38,8 +43,9 @@ public class TransactionService {
     public TransactionDetailsResponseDTO createTransaction(CreateTransactionRequestDTO request) {
         Account sender = accountService.findById(request.senderAccountId());
         Account receiver = accountService.findById(request.receiverAccountId());
-        TransactionType transactionType =
-                getTransactionType(request.senderCountry(), request.receiverCountry());
+        TransactionAmountLevel transactionAmountLevel = getTransactionAmountLevel(request.amount());
+        TransactionType transactionType = getTransactionType(sender.getCountry(), receiver.getCountry());
+        TaxHavenRiskLevel taxHavenRiskLevel = getTaxHavenRiskLevel(sender.getCountry());
 
 
         //Campos a preencher
@@ -49,19 +55,20 @@ public class TransactionService {
         transaction.setReceiverAccountId(receiver.getId());
 
         transaction.setAmount(request.amount());
+        transaction.setTransactionAmountLevel(transactionAmountLevel);
 
         transaction.setSenderCountry(sender.getCountry());
         transaction.setReceiverCountry(receiver.getCountry());
+        transaction.setTaxHavenRiskLevel(taxHavenRiskLevel);
 
         transaction.setTransactionType(transactionType);
 
         transaction.setTimestamp(LocalDateTime.now());
 
-        transaction.setTransactionState(TransactionState.APPROVED);
+        //Verifica se é fraude, dá set riskScore, riskLevel TransactionState
+        fraudService.verifyTransaction(transaction);
 
-        transaction.setRiskLevel(TransactionRiskLevel.UNKNOWN);
 
-        transaction.setRiskScore(0);
         //Salvar no repositório
         transactionRepository.save(transaction);
 
@@ -77,5 +84,13 @@ public class TransactionService {
 
     private TransactionType getTransactionType(String  senderCountry, String receiverCountry) {
         return TransactionTypeRule.determineTransactionType(senderCountry, receiverCountry);
+    }
+
+    private TransactionAmountLevel getTransactionAmountLevel(BigDecimal amount) {
+        return TransactionAmountRule.EvaluateMoneyAmountLevel(amount);
+    }
+
+    private TaxHavenRiskLevel getTaxHavenRiskLevel(String senderCountry) {
+        return TaxHavenRule.determineTaxHavenRiskLevel(senderCountry);
     }
 }

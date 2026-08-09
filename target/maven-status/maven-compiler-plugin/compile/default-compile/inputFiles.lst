@@ -1,22 +1,27 @@
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\account\Account.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\account\AccountController.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\account\AccountRepository.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\account\AccountService.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\account\dto\AccountDetailsResponseDTO.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\account\dto\CreateAccountRequestDTO.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\fraud\dto\FraudResultResponseDTO.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\taxHavenCountries.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TaxHavenRule.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TransactionAmountLevel.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TransactionAmountRule.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\FraudDetectionApp.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\FraudDetectionService.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\dto\CreateTransactionRequestDTO.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\dto\TransactionDetailsResponseDTO.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\dto\TransactionResponseDTO.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\Transaction.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionController.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionRepository.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionRiskLevel.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionService.java
-C:\Users\User\Desktop\Sistema de fraude bancária\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionState.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\account\Account.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\account\AccountController.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\account\AccountRepository.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\account\AccountService.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\account\dto\AccountDetailsResponseDTO.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\account\dto\CreateAccountRequestDTO.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\AiClient.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\dto\AiFraudPredictionRequestDTO.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\dto\AiFraudPredictionResponseDTO.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\dto\FraudResultResponseDTO.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\FraudService.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TaxHavenRiskLevel.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TaxHavenRule.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TransactionAmountLevel.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TransactionAmountRule.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TransactionType.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\fraud\rule\TransactionTypeRule.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\FraudDetectionApp.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\FraudDetectionService.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\dto\CreateTransactionRequestDTO.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\dto\TransactionDetailsResponseDTO.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\Transaction.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionController.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionRepository.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionRiskLevel.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionService.java
+C:\Users\User\Desktop\bank_fraud_system\bank-fraud-detection-system\src\main\java\fraudetection\transaction\TransactionState.java

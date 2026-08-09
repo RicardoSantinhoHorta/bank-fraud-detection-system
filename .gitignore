@@ -1,2 +1,4 @@
-maven.txt
+materias.txt
 src/main/resources
+.venv
+target

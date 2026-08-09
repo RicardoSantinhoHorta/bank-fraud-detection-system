@@ -2,7 +2,7 @@ package fraudetection.fraud.rule;
 
 public class TaxHavenRule{
 
-    public TaxHavenRiskLevel determineTaxHavenRiskLevel(String country){
+    public static TaxHavenRiskLevel determineTaxHavenRiskLevel(String country){
         return switch (country) {
             case "Cayman Islands", "Panama" -> TaxHavenRiskLevel.HIGH;
             case "Luxembourg", "Malta" -> TaxHavenRiskLevel.MEDIUM;
