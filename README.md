@@ -92,7 +92,6 @@ PostgreSQL
 ### Testing
 
 - JUnit
-- Mockito
 
 ## Fraud Detection
 
