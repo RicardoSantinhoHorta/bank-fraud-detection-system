@@ -1,5 +1,6 @@
 package fraudetection.transaction;
 
+import fraudetection.exception.InsufficientBalanceException;
 import fraudetection.fraud.FraudService;
 import fraudetection.fraud.rule.*;
 import fraudetection.transaction.dto.CreateTransactionRequestDTO;
@@ -7,6 +8,7 @@ import fraudetection.transaction.dto.TransactionDetailsResponseDTO;
 
 import fraudetection.account.AccountService;
 import fraudetection.account.Account;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -40,9 +42,15 @@ public class TransactionService {
         );
     }
 
+    @Transactional//Atómico. Ou a função vai até ao fim ou não acontece
     public TransactionDetailsResponseDTO createTransaction(CreateTransactionRequestDTO request) {
         Account sender = accountService.findById(request.senderAccountId());
         Account receiver = accountService.findById(request.receiverAccountId());
+
+        if(!accountService.hasSufficientBalance(sender, request.amount())){
+            throw new InsufficientBalanceException();
+        }
+
         TransactionAmountLevel transactionAmountLevel = getTransactionAmountLevel(request.amount());
         TransactionType transactionType = getTransactionType(sender.getCountry(), receiver.getCountry());
         TaxHavenRiskLevel taxHavenRiskLevel = getTaxHavenRiskLevel(sender.getCountry());
@@ -67,10 +75,13 @@ public class TransactionService {
 
         //Verifica se é fraude, dá set riskScore, riskLevel TransactionState
         fraudService.verifyTransaction(transaction);
-
-
         //Salvar no repositório
         transactionRepository.save(transaction);
+
+        transferFunds(sender, receiver, transaction.getAmount(), transaction.getTransactionState());
+
+
+
 
         return new TransactionDetailsResponseDTO(
                 transaction.getSenderAccountId(),
@@ -93,4 +104,14 @@ public class TransactionService {
     private TaxHavenRiskLevel getTaxHavenRiskLevel(String senderCountry) {
         return TaxHavenRule.determineTaxHavenRiskLevel(senderCountry);
     }
+
+    private void transferFunds(Account sender, Account receiver, BigDecimal amount, TransactionState transactionState) {
+        if(transactionState == TransactionState.REJECTED) {
+            return;
+        }
+        accountService.withdrawFunds(sender, amount);
+        accountService.depositFunds(receiver, amount);
+    }
+
+
 }
