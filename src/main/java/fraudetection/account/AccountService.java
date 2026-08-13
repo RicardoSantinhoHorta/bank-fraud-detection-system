@@ -2,7 +2,8 @@ package fraudetection.account;
 
 import fraudetection.account.dto.AccountDetailsResponseDTO;
 import fraudetection.account.dto.CreateAccountRequestDTO;
-import fraudetection.exceptions.AccountNotFoundException;
+import fraudetection.exception.AccountNotFoundException;
+import fraudetection.fraud.rule.TransactionAmountLevel;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -46,5 +47,19 @@ public class AccountService {
                 account.getBalance(),
                 account.getCountry()
         );
+    }
+
+    public void depositFunds(Account account, BigDecimal amount) {
+        account.setBalance(account.getBalance().add(amount));
+        accountRepository.save(account);
+    }
+
+    public void withdrawFunds(Account account, BigDecimal amount) {
+        account.setBalance(account.getBalance().subtract(amount));
+        accountRepository.save(account);
+    }
+
+    public boolean hasSufficientBalance(Account account, BigDecimal amount) {
+        return account.getBalance().compareTo(amount) >= 0;
     }
 }
