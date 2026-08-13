@@ -1,4 +1,4 @@
-package fraudetection.exceptions;
+package fraudetection.exception;
 
 public class AiServiceUnavailableException extends RuntimeException {
     public AiServiceUnavailableException() {

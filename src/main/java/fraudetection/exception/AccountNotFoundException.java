@@ -1,4 +1,4 @@
-package fraudetection.exceptions;
+package fraudetection.exception;
 
 public class AccountNotFoundException extends RuntimeException {
 
