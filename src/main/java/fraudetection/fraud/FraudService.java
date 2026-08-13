@@ -26,14 +26,12 @@ public class FraudService {
 
     public TransactionRiskLevel determineRiskScore(double riskScoreAi){
         if (riskScoreAi < 0 || riskScoreAi > 1) {
-            throw new IllegalArgumentException(
-                    "Risk score must be between 0 and 1"
-            );
+            throw new IllegalArgumentException("Risk score must be between 0 and 1");
         }
-        if (riskScoreAi < 0.3){
+        if (riskScoreAi < 0.3) {
             return TransactionRiskLevel.LOW;
         }
-        if (riskScoreAi < 0.8){
+        if (riskScoreAi < 0.8) {
             return TransactionRiskLevel.MEDIUM;
         }
         return TransactionRiskLevel.HIGH;
@@ -41,13 +39,9 @@ public class FraudService {
     }
 
     public TransactionState determineTransactionState(TransactionRiskLevel riskLevel){
-        if (riskLevel == TransactionRiskLevel.LOW || riskLevel == TransactionRiskLevel.MEDIUM){
+        if (riskLevel == TransactionRiskLevel.LOW || riskLevel == TransactionRiskLevel.MEDIUM) {
             return TransactionState.APPROVED;
         }
         return TransactionState.REJECTED;
-    }
-
-    public boolean isInternationalTransaction(Transaction transaction){
-        return !transaction.getSenderCountry().equals(transaction.getReceiverCountry());
     }
 }
