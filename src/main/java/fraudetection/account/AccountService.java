@@ -2,6 +2,7 @@ package fraudetection.account;
 
 import fraudetection.account.dto.AccountDetailsResponseDTO;
 import fraudetection.account.dto.CreateAccountRequestDTO;
+import fraudetection.exceptions.AccountNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,11 +18,11 @@ public class AccountService {
 
     //Usada no TransactionService
     public Account findById(Long id) {
-        return accountRepository.findById(id).orElseThrow();
+        return accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
     }
 
     public AccountDetailsResponseDTO getAccountDetailsById(Long id) {
-        Account account = accountRepository.findById(id).orElseThrow();
+        Account account = findById(id);
 
         return new AccountDetailsResponseDTO(
                 account.getAccountOwner(),
